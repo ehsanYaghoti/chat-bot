@@ -16,6 +16,7 @@ import Link from "next/link";
 import { ActivitySquare, CircleArrowDown, CircleUser, Flag, HelpCircle, LifeBuoy, LogOut, PenLine, ReceiptText, Settings, Sparkles } from "lucide-react";
 import UserInfo from "./userInfo";
 import { cn } from "@/lib/utils";
+import UpgradeBtn from "./upgradeBtn";
 
 export default function UserMenu({ collapsible }: { collapsible: boolean }) {
   return (
@@ -29,15 +30,17 @@ export default function UserMenu({ collapsible }: { collapsible: boolean }) {
         <DropdownMenuTrigger className="w-full outline-none hover:bg-token-hover p-2 rounded-lg data-[state=open]:bg-token-hover " >
           <UserInfo collapsible={collapsible} />
         </DropdownMenuTrigger>
-        <Button
+        {/* <Button
           size={"sm"}
           className={` ${
             collapsible ? "hidden" : "flex"
           } absolute right-2 top-1/2 -translate-y-[50%]  bg-secondary-1 rounded-2xl border border-white/20 `}
         >
           <Link href={"#plans"}>Upgrade</Link>
-        </Button>
-
+        </Button> */}
+        <UpgradeBtn className={`${
+            collapsible ? "hidden" : "flex"
+          } absolute right-2 top-1/2 -translate-y-[50%]`} />
         <DropdownMenuContent
           className={cn("*:hover:bg-token-hover! space-y-2 border-none -translate-y-2 text-textClr-1 *:hover:text-inherit! *:cursor-pointer p-3 rounded-2xl mt-5 z-50 w-60 bg-[#353535]  ")}
         >

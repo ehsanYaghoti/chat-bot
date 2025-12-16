@@ -162,7 +162,7 @@ export function AppSidebar() {
     <Sidebar
       collapsible="icon"
       color="bg-primary-1"
-      className=" bg-primary-1 py-2 text-white group"
+      className=" bg-primary-1 py-2 text-white group border-0 border-r-primary-1"
     >
       <SidebarHeader
         className={cn(

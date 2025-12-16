@@ -33,20 +33,20 @@ import {
 } from "@/components/ui/sidebar";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-import Logo from "./common/logo";
-import UserMenu from "./common/userMenu";
+import Logo from "../logo";
+import UserMenu from "../userMenu";
 import { Collapsible } from "@radix-ui/react-collapsible";
-import { CollapsibleContent, CollapsibleTrigger } from "./ui/collapsible";
+import { CollapsibleContent, CollapsibleTrigger } from "../../ui/collapsible";
 import {
   DropdownMenu,
   DropdownMenuItem,
   DropdownMenuSeparator,
-} from "./ui/dropdown-menu";
+} from "../../ui/dropdown-menu";
 import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "@radix-ui/react-dropdown-menu";
-import { Separator } from "./ui/separator";
+import { Separator } from "../../ui/separator";
 
 // Menu items.
 const items = [

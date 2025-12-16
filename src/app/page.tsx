@@ -1,14 +1,11 @@
-import { AppSidebar } from "@/components/app-sidebar";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
+import SidebarLayout from "@/components/layouts/sidebarLayout";
 
-export default function Home({ children }: { children: React.ReactNode }) {
+export default function Home() {
   return (
-    <SidebarProvider>
-      <AppSidebar />
-      <main>
-        <SidebarTrigger />
-        {children}
-      </main>
-    </SidebarProvider>
+    <SidebarLayout>
+        <main>
+
+        </main>
+    </SidebarLayout>
   );
 }

@@ -35,7 +35,7 @@ export default function UserMenu({ collapsible }: { collapsible: boolean }) {
             collapsible ? "hidden" : "flex"
           } absolute right-2 top-1/2 -translate-y-[50%]  bg-secondary-1 rounded-2xl border border-white/20 `}
         >
-          <Link href={"/plans"}>Upgrade</Link>
+          <Link href={"#plans"}>Upgrade</Link>
         </Button>
 
         <DropdownMenuContent

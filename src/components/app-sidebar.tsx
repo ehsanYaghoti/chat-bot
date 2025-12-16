@@ -72,6 +72,89 @@ const items = [
   },
 ];
 
+const conversationHistoryList = [
+  {
+    title: "Conversation title 1",
+    url: "#",
+  },
+  {
+    title: "Conversation title 2",
+    url: "#",
+  },
+  {
+    title: "Conversation title 3",
+    url: "#",
+  },
+  {
+    title: "Conversation title 4",
+    url: "#",
+  },
+  {
+    title: "Conversation title 5",
+    url: "#",
+  },
+  {
+    title: "Conversation title 6",
+    url: "#",
+  },
+  {
+    title: "Conversation title 7",
+    url: "#",
+  },
+  {
+    title: "Conversation title 8",
+    url: "#",
+  },
+  {
+    title: "Conversation title 9",
+    url: "#",
+  },
+  {
+    title: "Conversation title 10 longggggggggggggggggg",
+    url: "#",
+  },
+  {
+    title: "Conversation title 11",
+    url: "#",
+  },
+  {
+    title: "Conversation title 12",
+    url: "#",
+  },
+  {
+    title: "Conversation title 13",
+    url: "#",
+  },
+  {
+    title: "Conversation title 14",
+    url: "#",
+  },
+  {
+    title: "Conversation title 15",
+    url: "#",
+  },
+  {
+    title: "Conversation title 16",
+    url: "#",
+  },
+  {
+    title: "Conversation title 17",
+    url: "#",
+  },
+  {
+    title: "Conversation title 18",
+    url: "#",
+  },
+  {
+    title: "Conversation title 19",
+    url: "#",
+  },
+  {
+    title: "Conversation title 20 longggggggggggggggggg",
+    url: "#",
+  },
+];
+
 export function AppSidebar() {
   const { state } = useSidebar();
 
@@ -83,38 +166,40 @@ export function AppSidebar() {
     >
       <SidebarHeader
         className={cn(
-          "flex flex-row items-center justify-between w-full ",
+          "flex flex-row items-center  w-full ",
           state === "collapsed" &&
             "p-0! justify-center group-data-[collapsible=icon]:p-0! group-data-[collapsible=icon]:self-center "
         )}
       >
         <Logo collapsed={state === "collapsed"} />
         <SidebarTrigger
-          className={` cursor-pointer hover:text-slate-50 hover:bg-token-hover ${
+          className={` cursor-pointer hover:text-slate-50 hover:bg-token-hover ml-auto   ${
             state === "collapsed" && "hidden"
           } `}
         />
       </SidebarHeader>
-      <SidebarContent>
-        <SidebarGroup>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {items.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton
-                    asChild
-                    className="hover:bg-token-hover hover:text-inherit"
-                  >
-                    <a href={item.url}>
-                      <item.icon />
-                      <span>{item.title}</span>
-                    </a>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
+      <SidebarContent className=" " style={{scrollbarWidth : "thin" , scrollbarColor : "#303030 transparent"}} >
+
+      <SidebarGroup className=" sticky top-0 bg-primary-1 z-30" >
+        <SidebarGroupContent>
+          <SidebarMenu>
+            {items.map((item) => (
+              <SidebarMenuItem key={item.title}>
+                <SidebarMenuButton
+                  asChild
+                  className="hover:bg-token-hover hover:text-inherit "
+                >
+                  <a href={item.url}>
+                    <item.icon />
+                    <span>{item.title}</span>
+                  </a>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            ))}
+          </SidebarMenu>
+        </SidebarGroupContent>
+      </SidebarGroup>
+
         <Collapsible defaultOpen className="group/collapsible">
           <SidebarGroup>
             <SidebarGroupLabel asChild>
@@ -124,62 +209,61 @@ export function AppSidebar() {
               </CollapsibleTrigger>
             </SidebarGroupLabel>
             <CollapsibleContent>
-              <SidebarGroupContent>
-                <SidebarMenu className="gap-3 mt-3 font-light!">
-                  <SidebarMenuItem className="hover:bg-token-hover rounded-lg ">
-                    <SidebarMenuButton
-                      asChild
-                      className="hover:bg-transparent hover:text-inherit  "
-                    >
-                      <Link
-                        href={"#"}
-                        className="overflow-hidden text-ellipsis whitespace-nowrap inline-block w-full! "
+              <SidebarGroupContent
+                className={`${state === "collapsed" ? "hidden" : "flex"}`}
+              >
+                <SidebarMenu className="gap-2 mt-3 font-light!">
+                  {conversationHistoryList.map((conversation , index) => (
+                    <SidebarMenuItem  key={index} className="hover:bg-token-hover rounded-lg ">
+                      <SidebarMenuButton
+                        asChild
+                        className="hover:bg-transparent hover:text-inherit scroll-mt-6 focus:bg-inherit! focus:text-inherit! peer  "
                       >
-                        Conversation 1
-                        longggggggggggg44ggggggggggggg22222222222222222222
-                      </Link>
-                    </SidebarMenuButton>
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        <SidebarMenuAction className="hover:bg-transparent! cursor-pointer outline-none">
-                          <MoreHorizontal className="text-textClr-1   " />
-                        </SidebarMenuAction>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent
-                        className={cn(
-                          "*:hover:bg-token-hover! space-y-2 *:text-xs! border-none p-2 -translate-y-2 w-42 text-textClr-1  *:hover:text-inherit!   *:cursor-pointer  rounded-lg mt-5 -ml-3 z-50  bg-[#353535]  "
-                        )}
-                        side="bottom"
-                        align="start"
-                      >
-                        <DropdownMenuItem>
-                          <Upload className="text-inherit" />
-                          Share
-                        </DropdownMenuItem>
-                        <DropdownMenuItem>
-                          <UserRoundPlus className="text-inherit" />
-                          <span>Start a group chat</span>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem>
-                          <Pencil className="text-inherit" />
-                          <span>Rename</span>
-                        </DropdownMenuItem>
-                        <DropdownMenuSeparator className=" mx-2 opacity-10   pointer-events-none " />
-                        <DropdownMenuItem>
-                          <Archive className="text-inherit" />
-                          <span>Archive</span>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem className="text-red-300">
-                          <Trash2 className="text-inherit" />
-                          <span>Delete</span>
-                        </DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                  </SidebarMenuItem>
-                  <SidebarMenuItem>Conversation 2</SidebarMenuItem>
-                  <SidebarMenuItem>Conversation 3</SidebarMenuItem>
-                  <SidebarMenuItem>Conversation 4</SidebarMenuItem>
-                  <SidebarMenuItem>Conversation 4</SidebarMenuItem>
+                        <Link
+                          href={conversation.url}
+                          className="overflow-hidden text-ellipsis whitespace-nowrap inline-block w-full! "
+                        >
+                          {conversation.title}
+                        </Link>
+                      </SidebarMenuButton>
+                      <DropdownMenu >
+                        <DropdownMenuTrigger asChild>
+                          <SidebarMenuAction className="hover:bg-transparent! cursor-pointer outline-none">
+                            <MoreHorizontal className="text-textClr-1   " />
+                          </SidebarMenuAction>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent
+                          className={cn(
+                            "*:hover:bg-token-hover! space-y-2 *:text-xs! border-none p-2 -translate-y-2 w-42 text-textClr-1  *:hover:text-inherit!   *:cursor-pointer  rounded-lg mt-5 -ml-3 z-50  bg-[#353535]  "
+                          )}
+                          side="bottom"
+                          align="start"
+                        >
+                          <DropdownMenuItem>
+                            <Upload className="text-inherit" />
+                            Share
+                          </DropdownMenuItem>
+                          <DropdownMenuItem>
+                            <UserRoundPlus className="text-inherit" />
+                            <span>Start a group chat</span>
+                          </DropdownMenuItem>
+                          <DropdownMenuItem>
+                            <Pencil className="text-inherit" />
+                            <span>Rename</span>
+                          </DropdownMenuItem>
+                          <DropdownMenuSeparator className=" mx-2 opacity-10   pointer-events-none " />
+                          <DropdownMenuItem>
+                            <Archive className="text-inherit" />
+                            <span>Archive</span>
+                          </DropdownMenuItem>
+                          <DropdownMenuItem className="text-red-300">
+                            <Trash2 className="text-inherit" />
+                            <span>Delete</span>
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    </SidebarMenuItem>
+                  ))}
                 </SidebarMenu>
               </SidebarGroupContent>
             </CollapsibleContent>

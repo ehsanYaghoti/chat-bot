@@ -1,7 +1,7 @@
 "use client";
 
 import Header from "@/components/common/header/header";
-import InputComponent from "@/components/common/inputGroup";
+import InputComponent from "@/components/main/inputGroup";
 import SidebarLayout from "@/components/layouts/sidebarLayout";
 
 export default function Home() {

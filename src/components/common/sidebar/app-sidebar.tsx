@@ -34,7 +34,7 @@ import {
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import Logo from "../logo";
-import UserMenu from "../userMenu";
+import UserMenu from "../user/userMenu";
 import { Collapsible } from "@radix-ui/react-collapsible";
 import { CollapsibleContent, CollapsibleTrigger } from "../../ui/collapsible";
 import {

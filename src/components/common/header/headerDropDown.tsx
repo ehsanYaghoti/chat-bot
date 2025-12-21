@@ -5,7 +5,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
 import { Check, ChevronDown, Flower, Sparkles } from "lucide-react";
-import UpgradeBtn from "../upgradeBtn";
+import UpgradeBtn from "../buttons/upgradeBtn";
 
 const HeaderDropDown = () => {
   return (

@@ -11,12 +11,10 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-import { Button } from "../ui/button";
-import Link from "next/link";
 import { ActivitySquare, CircleArrowDown, CircleUser, Flag, HelpCircle, LifeBuoy, LogOut, PenLine, ReceiptText, Settings, Sparkles } from "lucide-react";
 import UserInfo from "./userInfo";
 import { cn } from "@/lib/utils";
-import UpgradeBtn from "./upgradeBtn";
+import UpgradeBtn from "../buttons/upgradeBtn";
 
 export default function UserMenu({ collapsible }: { collapsible: boolean }) {
   return (

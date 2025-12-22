@@ -1,10 +1,15 @@
+"use client";
+
 import Link from "next/link";
 import HeaderDropDown from "./headerDropDown";
-import { MessageCircleDashed, Sparkle, UserRoundPlus } from "lucide-react";
+import { MessageCircle, MessageCircleDashed, Sparkle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { DialogGroupChat } from "./groupChat";
+import { useState } from "react";
 
 const Header = () => {
+  const [temporareChat, setTemporareChat] = useState(false);
+
   return (
     <header
       className=" w-full h-16 py-3 px-4 flex items-center justify-between
@@ -21,9 +26,16 @@ const Header = () => {
       </Link>
       <div className="flex items-center gap-3">
         <DialogGroupChat />
-        <button className="bg-transparent hover:bg-token-hover rounded-full p-2 flex items-center justify-center cursor-pointer ">
-          <MessageCircleDashed />
-        </button>
+
+        {temporareChat ? (
+          <Button onClick={() => setTemporareChat(false)} className="bg-transparent temporareIcon  hover:bg-token-hover rounded-full p-2 flex items-center justify-center cursor-pointer ">
+            <MessageCircle className="" />
+          </Button>
+        ) : (
+          <Button onClick={() => setTemporareChat(true)} className="bg-transparent temporareIcon  hover:bg-token-hover rounded-full p-2 flex items-center justify-center cursor-pointer ">
+            <MessageCircleDashed className="" />
+          </Button>
+        )}
       </div>
     </header>
   );

@@ -9,19 +9,17 @@ export default function Home() {
   return (
     <SidebarLayout>
       <div
-        className="w-full flex flex-col h-svh overflow-hidden relative
-         bg-secondary-1 grow items-center  text-textClr-1
+        className="w-full flex flex-col h-svh overflow-y-hidden relative
+         bg-secondary-1 items-center  text-textClr-1
         "
         style={{ scrollbarWidth: "thin", scrollbarColor: "#9F9F9F #2C2C2C" }}
       >
         <Header />
-        {/* <main className=" w-full bg-secondary-1 grow flex flex-col gap-5 pb-8 items-center justify-center text-textClr-1 relative"> */}
         <Conversation />
-        <div className="flex flex-col items-center gap-5 bg-transparent ">
+        <div className="w-full flex flex-col items-center gap-5  bg-linear-to-t from-primary-1 from-0% via-secondary-1 via-50%  to-transparent z-20  -mt-20 py-8 ">
           {/* <span className="text-3xl ">Ready when you are?</span> */}
           <InputComponent />
         </div>
-        {/* </main> */}
       </div>
     </SidebarLayout>
   );

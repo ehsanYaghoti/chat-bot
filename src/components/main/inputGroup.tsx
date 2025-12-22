@@ -32,13 +32,22 @@ export default function InputComponent() {
   const keyHandler = (
     e: KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
+
     if (e.key === "Enter" && e.shiftKey) {
-      console.log("shift+Enter");
       if (e.currentTarget.id === "inputText") setInputTextOverflow(true);
       setTimeout(() => {
         inputTextAreaRef.current?.focus();
       }, 100);
       return;
+    }
+
+    if (e.currentTarget.id === "textarea-code-32" ) {
+        if(e.currentTarget.value.length === 0 && e.key === "Backspace"){
+            setInputTextOverflow(false)
+        }
+        setTimeout(() => {
+          inputRef.current?.focus();
+        }, 100);
     }
 
     if (e.key === "Enter") {
@@ -55,15 +64,6 @@ export default function InputComponent() {
     const value = e.target.value ?? "";
     setInputHasValue(value.trim().length > 0);
     setQuestion(e.target.value);
-    if (e.target.id === "textarea-code-32") {
-        console.log(e.target.value.length)
-      if (e.target.value.length === 0) {
-        setInputTextOverflow(false);
-        setTimeout(() => {
-          inputRef.current?.focus();
-        }, 100);
-      }
-    }
 
     if (e.target.id === "inputText") {
       if (e.target.scrollWidth > e.target.clientWidth) {
@@ -76,9 +76,9 @@ export default function InputComponent() {
   };
 
   return (
-    <div className=" w-full  flex-[0_0_auto] mb-8">
+    <div className=" sticky bottom-0  flex-[0_0_auto] transition-all">
       <InputGroup
-        className="flex flex-col scrollbar border-0  shadow-none! lg:w-[750px]  transition-all "
+        className="flex flex-col scrollbar border-0 lg:w-[750px]  transition-all "
         style={{
           scrollbarWidth: "thin",
           scrollbarColor: "#C0C0C1 transparent",

@@ -2,6 +2,7 @@ import Link from "next/link";
 import HeaderDropDown from "./headerDropDown";
 import { MessageCircleDashed, Sparkle, UserRoundPlus } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { DialogGroupChat } from "./groupChat";
 
 const Header = () => {
   return (
@@ -19,9 +20,7 @@ const Header = () => {
         Get Plus
       </Link>
       <div className="flex items-center gap-3">
-        <button className="bg-transparent hover:bg-token-hover rounded-full p-2 flex items-center justify-center cursor-pointer ">
-          <UserRoundPlus size={24} />
-        </button>
+        <DialogGroupChat />
         <button className="bg-transparent hover:bg-token-hover rounded-full p-2 flex items-center justify-center cursor-pointer ">
           <MessageCircleDashed />
         </button>

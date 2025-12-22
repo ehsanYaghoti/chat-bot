@@ -7,7 +7,7 @@ const Header = () => {
   return (
     <header
       className=" w-full h-16 py-3 px-4 flex items-center justify-between
-         bg-secondary-1 border-b border-b-white/10 text-textClr-1"
+         bg-secondary-1 border-b border-b-white/10 text-textClr-1  z-40 flex-[0_0_auto] "
     >
       <HeaderDropDown />
       <Link

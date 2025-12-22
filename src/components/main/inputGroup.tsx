@@ -25,7 +25,7 @@ export default function InputComponent() {
     }
 
     setInputTextOverflow(false);
-    setQuestion('')
+    setQuestion("");
     console.log(question);
   };
 
@@ -55,6 +55,15 @@ export default function InputComponent() {
     const value = e.target.value ?? "";
     setInputHasValue(value.trim().length > 0);
     setQuestion(e.target.value);
+    if (e.target.id === "textarea-code-32") {
+        console.log(e.target.value.length)
+      if (e.target.value.length === 0) {
+        setInputTextOverflow(false);
+        setTimeout(() => {
+          inputRef.current?.focus();
+        }, 100);
+      }
+    }
 
     if (e.target.id === "inputText") {
       if (e.target.scrollWidth > e.target.clientWidth) {
@@ -67,65 +76,67 @@ export default function InputComponent() {
   };
 
   return (
-    <InputGroup
-      className="flex flex-col scrollbar border-0  shadow-none! lg:w-[750px]  transition-all "
-      style={{
-        scrollbarWidth: "thin",
-        scrollbarColor: "#C0C0C1 transparent",
-      }}
-    >
-      <InputGroupTextarea
-        id="textarea-code-32"
-        ref={inputTextAreaRef}
-        placeholder="Ask anything"
-        className={`${
-          inputTextOverflow ? "flex" : "hidden"
-        } max-h-64 min-h-full border-0 ring-0 w-full max-w-full  bg-netural-1 rounded-b-none  rounded-t-lg `}
-        autoFocus
-        onChange={inputHandler}
-        onKeyDown={(e) => keyHandler(e)}
-        value={inputTextOverflow ? question : ""}
-      />
+    <div className=" w-full  flex-[0_0_auto] mb-8">
       <InputGroup
-        className={`${
-          inputTextOverflow ? " rounded-b-lg rounded-t-none " : "rounded-full"
-        } overflow-y-auto min-h-auto h-14 max-h-80 px-2 bg-netural-1 focus:outline-none outline-none border border-[#323232]
-            lg:w-[750px]  items-center gap-2 overflow-hidden `}
+        className="flex flex-col scrollbar border-0  shadow-none! lg:w-[750px]  transition-all "
+        style={{
+          scrollbarWidth: "thin",
+          scrollbarColor: "#C0C0C1 transparent",
+        }}
       >
-        <InputGroupAddon className="">
-          <Button className="bg-transparent hover:bg-[#454545] rounded-full w-10 h-10 cursor-pointer ">
-            <Plus />
-          </Button>
-        </InputGroupAddon>
-        <InputGroupInput
+        <InputGroupTextarea
+          id="textarea-code-32"
+          ref={inputTextAreaRef}
           placeholder="Ask anything"
           className={`${
-            inputTextOverflow ? "invisible" : "flex"
-          } h-full focus:outline-none outline-none  focus:ring-0!  focus-visible:ring-0!  ring-0 border-ring"`}
+            inputTextOverflow ? "flex" : "hidden"
+          } max-h-64 min-h-full border-0 ring-0 w-full max-w-full  bg-netural-1 rounded-b-none  rounded-t-lg `}
+          autoFocus
           onChange={inputHandler}
-          id="inputText"
-          ref={inputRef}
-          value={inputTextOverflow ? "" : question}
           onKeyDown={(e) => keyHandler(e)}
+          value={inputTextOverflow ? question : ""}
         />
-        <InputGroupAddon align={"inline-end"}>
-          <Button className="bg-transparent hover:bg-[#454545] rounded-full w-10 h-10  cursor-pointer ">
-            <Mic />
-          </Button>
-          {inputHasValue ? (
-            <Button
-              onClick={() => submitHandler()}
-              className=" text-primary-1 bg-textClr-1 hover:bg-[#C1C1C1] rounded-full w-10 h-10 cursor-pointer text-sm "
-            >
-              <ArrowUp />
+        <InputGroup
+          className={`${
+            inputTextOverflow ? " rounded-b-lg rounded-t-none " : "rounded-full"
+          } overflow-y-auto min-h-auto h-14 max-h-80 px-2 bg-netural-1 focus:outline-none outline-none border border-[#323232]
+            lg:w-[750px]  items-center gap-2 overflow-hidden `}
+        >
+          <InputGroupAddon className="">
+            <Button className="bg-transparent hover:bg-[#454545] rounded-full w-10 h-10 cursor-pointer ">
+              <Plus />
             </Button>
-          ) : (
-            <Button className=" text-primary-1 bg-textClr-1 hover:bg-[#C1C1C1] rounded-full w-10 h-10 cursor-pointer text-sm ">
-              <AudioLines />
+          </InputGroupAddon>
+          <InputGroupInput
+            placeholder="Ask anything"
+            className={`${
+              inputTextOverflow ? "invisible" : "flex"
+            } h-full focus:outline-none outline-none  focus:ring-0!  focus-visible:ring-0!  ring-0 border-ring"`}
+            onChange={inputHandler}
+            id="inputText"
+            ref={inputRef}
+            value={inputTextOverflow ? "" : question}
+            onKeyDown={(e) => keyHandler(e)}
+          />
+          <InputGroupAddon align={"inline-end"}>
+            <Button className="bg-transparent hover:bg-[#454545] rounded-full w-10 h-10  cursor-pointer ">
+              <Mic />
             </Button>
-          )}
-        </InputGroupAddon>
+            {inputHasValue ? (
+              <Button
+                onClick={() => submitHandler()}
+                className=" text-primary-1 bg-textClr-1 hover:bg-[#C1C1C1] rounded-full w-10 h-10 cursor-pointer text-sm "
+              >
+                <ArrowUp />
+              </Button>
+            ) : (
+              <Button className=" text-primary-1 bg-textClr-1 hover:bg-[#C1C1C1] rounded-full w-10 h-10 cursor-pointer text-sm ">
+                <AudioLines />
+              </Button>
+            )}
+          </InputGroupAddon>
+        </InputGroup>
       </InputGroup>
-    </InputGroup>
+    </div>
   );
 }

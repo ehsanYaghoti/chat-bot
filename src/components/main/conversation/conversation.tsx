@@ -1,11 +1,10 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import Answer from "./answer";
 import ConversationTools from "./conversationTools";
 import Question from "./question";
-import { ArrowDown } from "lucide-react";
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import ScrollBottomBtn from "./scrollBottomBtn";
 
 const conversationList = [
   {
@@ -62,32 +61,25 @@ const conversationList = [
 
 export default function Conversation() {
   const messagesRef = useRef<HTMLDivElement>(null);
-  const scrollBtnRef = useRef<HTMLButtonElement>(null);
 
-  const scrollBottomHandler = () => {
-    console.log(messagesRef.current?.scrollHeight);
-    messagesRef.current?.scrollTo({
-      top: messagesRef.current?.scrollHeight,
-      behavior: "smooth",
-    });
-  };
+  const [showScrollBtn, setShowScrollBtn] = useState(false);
 
   const scrollHandler = () => {
+    const el = messagesRef.current;
 
-    console.log((messagesRef.current?.scrollHeight as number) - (messagesRef.current?.scrollTop as number) - (messagesRef.current?.clientHeight as number))
-    if(((messagesRef.current?.scrollHeight as number) - (messagesRef.current?.scrollTop as number) - (messagesRef.current?.clientHeight as number)) > 100 ){
-        scrollBtnRef.current?.classList.replace('hidden' , 'flex')
-        scrollBtnRef.current?.classList.replace('opacity-0' ,'opacity-1')
+    if (!el) return;
 
-    } else {
-        scrollBtnRef.current?.classList.replace('flex' , 'hidden')
-        scrollBtnRef.current?.classList.replace('opacity-1' ,'opacity-0')
-    }
-  }
+    console.log(showScrollBtn);
+
+    const distanceFromBottom =
+      el?.scrollHeight - el?.scrollTop - el?.clientHeight;
+
+    setShowScrollBtn(distanceFromBottom > 100);
+  };
 
   return (
     <main
-      className="flex flex-col gap-8 h-fit min-h-0 pb-20 flex-1 lg:w-[750PX] overflow-y-auto  py-4 relative"
+      className="flex flex-col gap-8 min-h-0 pb-20 flex-1 lg:w-[750PX] overflow-y-auto  py-4 relative"
       style={{ scrollbarWidth: "none" }}
       ref={messagesRef}
       onScroll={scrollHandler}
@@ -99,16 +91,7 @@ export default function Conversation() {
           <ConversationTools />
         </div>
       ))}
-      <Button
-        variant={"outline"}
-        size={"icon"}
-        onClick={scrollBottomHandler}
-        className="border-textClr-1/20 z-50 bg-secondary-1 hover:bg-token-hover hover:text-inherit cursor-pointer rounded-full
-         sticky bottom-0 left-1/2 -translate-x-1/2 items-center justify-center transition-opacity hidden "
-         ref={scrollBtnRef}
-      >
-        <ArrowDown size={36} />
-      </Button>
+      <ScrollBottomBtn visible={showScrollBtn} containerRef={messagesRef} />
     </main>
   );
 }

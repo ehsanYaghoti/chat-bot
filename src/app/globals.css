@@ -135,11 +135,6 @@
 }
 
 
-#temporareSwitch:checked + .temporareIcon {
-    display: none;
-}
-
-
 @layer utilities {
 
     :root {

@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/input-group";
 import { ArrowUp, AudioLines, Mic, Plus } from "lucide-react";
 import { ChangeEvent, KeyboardEvent, useEffect, useRef, useState } from "react";
+import InputAddBtn from "./inputAddBtn";
 
 export default function InputComponent() {
   const [inputHasValue, setInputHasValue] = useState(false);
@@ -103,9 +104,7 @@ export default function InputComponent() {
             lg:w-[750px]  items-center gap-2 overflow-hidden `}
         >
           <InputGroupAddon className="">
-            <Button className="bg-transparent hover:bg-[#454545] rounded-full w-10 h-10 cursor-pointer ">
-              <Plus />
-            </Button>
+            <InputAddBtn />
           </InputGroupAddon>
           <InputGroupInput
             placeholder="Ask anything"

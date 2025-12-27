@@ -20,13 +20,13 @@ export default function UserMenu({ collapsible }: { collapsible: boolean }) {
   return (
     <div
       className={`w-full  shrink-0   flex items-center justify-center relative  ${
-        collapsible ? "p-0 rounded-full" : "p-0 rounded-lg"
+        collapsible ? "p-0 rounded-full" : "p-0! rounded-lg"
       } items-center justify-between `}
 
     >
       <DropdownMenu>
-        <DropdownMenuTrigger className="w-full outline-none hover:bg-token-hover p-2 rounded-lg data-[state=open]:bg-token-hover " >
-          <UserInfo collapsible={collapsible} />
+        <DropdownMenuTrigger className={` ${collapsible ? "w-full flex items-center justify-center rounded-md cursor-pointer" : "w-full rounded-lg p-2"} transition-all  outline-none hover:bg-token-hover   data-[state=open]:bg-token-hover `} >
+          <UserInfo showInfo={false} collapsible={collapsible} />
         </DropdownMenuTrigger>
         {/* <Button
           size={"sm"}
@@ -38,12 +38,12 @@ export default function UserMenu({ collapsible }: { collapsible: boolean }) {
         </Button> */}
         <UpgradeBtn className={`${
             collapsible ? "hidden" : "flex"
-          } absolute right-2 top-1/2 -translate-y-[50%]`} />
+          } absolute right-2 top-1/2 -translate-y-[50%] text-xs!`} />
         <DropdownMenuContent
           className={cn("*:hover:bg-token-hover! space-y-2 border-none -translate-y-2 text-textClr-1 *:hover:text-inherit! *:cursor-pointer p-3 rounded-2xl mt-5 z-50 w-60 bg-[#353535]  ")}
         >
           <DropdownMenuLabel>
-            <UserInfo collapsible={collapsible} />
+            <UserInfo showInfo={true} collapsible={collapsible} />
           </DropdownMenuLabel>
           <DropdownMenuSeparator className=" opacity-20 " />
           <DropdownMenuItem className="flex items-center gap-2 ">

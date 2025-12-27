@@ -23,7 +23,7 @@ export default function Logo({collapsed} : { collapsed : boolean }) {
       </Link>
 
       <SidebarTrigger
-        className={`hidden h-9 w-9 hover:text-slate-50 hover:bg-token-hover ${collapsed && "group-hover:flex"} `}
+        className={`hidden h-9 w-9 hover:text-textClr-1 hover:bg-token-hover ${collapsed && "group-hover:flex"} `}
       />
     </>
   );

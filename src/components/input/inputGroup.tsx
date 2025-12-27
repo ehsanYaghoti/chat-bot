@@ -76,9 +76,9 @@ export default function InputComponent() {
   };
 
   return (
-    <div className=" sticky bottom-0  flex-[0_0_auto] transition-all">
+    <div className=" sticky bottom-0 w-full flex items-center justify-center  flex-[0_0_auto] transition-all">
       <InputGroup
-        className="flex flex-col scrollbar border-0 lg:w-[750px]  transition-all "
+        className="flex flex-col scrollbar border-0 transition-all "
         style={{
           scrollbarWidth: "thin",
           scrollbarColor: "#C0C0C1 transparent",
@@ -100,7 +100,7 @@ export default function InputComponent() {
           className={`${
             inputTextOverflow ? " rounded-b-lg rounded-t-none " : "rounded-full"
           } overflow-y-auto min-h-auto h-14 max-h-80 px-2 bg-netural-1 focus:outline-none outline-none border border-[#323232]
-            lg:w-[750px]  items-center gap-2 overflow-hidden `}
+           md:w-full lg:w-[650px] xl:w-[750px]  items-center gap-2 overflow-hidden `}
         >
           <InputGroupAddon className="">
             <InputAddBtn />

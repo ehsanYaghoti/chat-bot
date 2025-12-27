@@ -79,7 +79,7 @@ export default function Conversation() {
 
   return (
     <main
-      className="flex flex-col gap-8 min-h-0 pb-20 flex-1 lg:w-[750PX] overflow-y-auto  py-4 relative"
+      className="flex flex-col gap-8 min-h-0 pb-20 px-4 flex-1 lg:w-[650px] xl:w-[750PX] overflow-y-auto  py-4 relative"
       style={{ scrollbarWidth: "none" }}
       ref={messagesRef}
       onScroll={scrollHandler}

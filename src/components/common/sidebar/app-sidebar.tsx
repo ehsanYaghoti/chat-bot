@@ -162,7 +162,7 @@ export function AppSidebar() {
     <Sidebar
       collapsible="icon"
       color="bg-primary-1"
-      className=" bg-primary-1 py-2 text-white group border-0 border-r-primary-1"
+      className=" bg-primary-1 py-2 text-textClr-1 group border-0 border-r-primary-1"
     >
       <SidebarHeader
         className={cn(
@@ -173,23 +173,23 @@ export function AppSidebar() {
       >
         <Logo collapsed={state === "collapsed"} />
         <SidebarTrigger
-          className={` cursor-pointer hover:text-slate-50 hover:bg-token-hover ml-auto   ${
+          className={` cursor-pointer text-textClr-1 hover:text-slate-50 hover:bg-token-hover ml-auto   ${
             state === "collapsed" && "hidden"
           } `}
         />
       </SidebarHeader>
-      <SidebarContent className=" " style={{scrollbarWidth : "thin" , scrollbarColor : "#303030 transparent"}} >
+      <SidebarContent className=" text-textClr-1" style={{scrollbarWidth : "thin" , scrollbarColor : "#303030 transparent"}} >
 
-      <SidebarGroup className=" sticky top-0 bg-primary-1 z-30" >
+      <SidebarGroup className=" sticky top-0 bg-primary-1  z-30" >
         <SidebarGroupContent>
           <SidebarMenu>
             {items.map((item) => (
               <SidebarMenuItem key={item.title}>
                 <SidebarMenuButton
                   asChild
-                  className="hover:bg-token-hover hover:text-inherit "
+                  className="hover:bg-token-hover text-inherit! hover:text-inherit "
                 >
-                  <a href={item.url}>
+                  <a href={item.url} className="text-inherit">
                     <item.icon />
                     <span>{item.title}</span>
                   </a>
@@ -270,7 +270,7 @@ export function AppSidebar() {
           </SidebarGroup>
         </Collapsible>
       </SidebarContent>
-      <SidebarFooter>
+      <SidebarFooter className="text-textClr-1" >
         <SidebarMenu>
           <SidebarMenuItem>
             <UserMenu collapsible={state === "collapsed"} />

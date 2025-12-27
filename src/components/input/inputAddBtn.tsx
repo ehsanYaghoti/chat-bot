@@ -31,6 +31,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import Logo from "../common/logo";
+import { Label } from "../ui/label";
 
 export default function InputAddBtn() {
   const [showCreateImage, setShowCreateImage] = useState(false);
@@ -47,9 +48,13 @@ export default function InputAddBtn() {
         <DropdownMenuItem
           className="focus:bg-token-hover focus:text-inherit hover:bg-token-hover
             rounded-lg  py-2 px-3"
+          asChild
         >
-          <Paperclip className="text-inherit rotate-135  " />
-          Add photos & files
+          <Label htmlFor="image" className=" cursor-pointer">
+            <Paperclip className="text-inherit rotate-135  " />
+            Add photos & files
+            <input type="file" className=" hidden" name="image" id="image" />
+          </Label>
         </DropdownMenuItem>
         <DropdownMenuSeparator className=" opacity-10 mx-1 " />
         <DropdownMenuCheckboxItem

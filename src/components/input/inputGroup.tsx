@@ -33,7 +33,6 @@ export default function InputComponent() {
   const keyHandler = (
     e: KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-
     if (e.key === "Enter" && e.shiftKey) {
       if (e.currentTarget.id === "inputText") setInputTextOverflow(true);
       setTimeout(() => {
@@ -42,13 +41,13 @@ export default function InputComponent() {
       return;
     }
 
-    if (e.currentTarget.id === "textarea-code-32" ) {
-        if(e.currentTarget.value.length === 0 && e.key === "Backspace"){
-            setInputTextOverflow(false)
-        }
-        setTimeout(() => {
-          inputRef.current?.focus();
-        }, 100);
+    if (e.currentTarget.id === "textarea-code-32") {
+      if (e.currentTarget.value.length === 0 && e.key === "Backspace") {
+        setInputTextOverflow(false);
+      }
+      setTimeout(() => {
+        inputRef.current?.focus();
+      }, 100);
     }
 
     if (e.key === "Enter") {
@@ -121,18 +120,13 @@ export default function InputComponent() {
             <Button className="bg-transparent hover:bg-[#454545] rounded-full w-10 h-10  cursor-pointer ">
               <Mic />
             </Button>
-            {inputHasValue ? (
-              <Button
-                onClick={() => submitHandler()}
-                className=" text-primary-1 bg-textClr-1 hover:bg-[#C1C1C1] rounded-full w-10 h-10 cursor-pointer text-sm "
-              >
-                <ArrowUp />
-              </Button>
-            ) : (
-              <Button className=" text-primary-1 bg-textClr-1 hover:bg-[#C1C1C1] rounded-full w-10 h-10 cursor-pointer text-sm ">
-                <AudioLines />
-              </Button>
-            )}
+            <Button
+              onClick={() => submitHandler()}
+              disabled={!inputHasValue}
+              className={`text-primary-1 bg-textClr-1 hover:bg-[#C1C1C1]  rounded-full w-10 h-10 cursor-pointer text-sm `}
+            >
+              <ArrowUp />
+            </Button>
           </InputGroupAddon>
         </InputGroup>
       </InputGroup>

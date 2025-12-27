@@ -4,8 +4,10 @@ import {
   BookOpen,
   Ellipsis,
   Globe,
+  Grid2X2,
   Images,
   Lightbulb,
+  NotepadText,
   Paperclip,
   Pencil,
   Plus,
@@ -123,7 +125,7 @@ export default function InputAddBtn() {
                   width="20"
                   height="20"
                   viewBox="0 0 20 20"
-                  fill="currentColor"
+                  fill="#FFFFDE"
                   xmlns="http://www.w3.org/2000/svg"
                   className="icon-lg"
                 >
@@ -132,11 +134,11 @@ export default function InputAddBtn() {
                 Your Year with ChatGPT
               </DropdownMenuItem>
               <DropdownMenuItem>
-                {/* <CircleArrowDown className="text-inherit" /> */}
+                <NotepadText className="text-inherit" />
                 Quizzes
               </DropdownMenuItem>
               <DropdownMenuItem>
-                {/* <ActivitySquare className="text-inherit rotate-90" /> */}
+                <Grid2X2 className="text-inherit rotate-90" />
                 Explore Apps
               </DropdownMenuItem>
             </DropdownMenuSubContent>

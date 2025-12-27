@@ -234,7 +234,7 @@ export function AppSidebar() {
                         </DropdownMenuTrigger>
                         <DropdownMenuContent
                           className={cn(
-                            "*:hover:bg-token-hover! space-y-2 *:text-xs! border-none p-2 -translate-y-2 w-42 text-textClr-1  *:hover:text-inherit!   *:cursor-pointer  rounded-lg mt-5 -ml-3 z-50  bg-[#353535]  "
+                            "*:hover:bg-token-hover! space-y-2 *:text-xs! border-none p-2 -translate-y-2 w-42 text-textClr-1  *:hover:text-inherit!   *:cursor-pointer  rounded-lg mt-5 -ml-3 z-50!  bg-[#353535]  "
                           )}
                           side="bottom"
                           align="start"

@@ -16,7 +16,7 @@ export default function Home() {
       >
         <Header />
         <Conversation />
-        <div className="w-full flex flex-col items-center gap-5  bg-linear-to-t from-primary-1 from-0% via-secondary-1 via-50%  to-transparent z-20  -mt-20 py-8 ">
+        <div className="w-full flex flex-col items-center gap-5  bg-linear-to-t from-primary-1 from-0% via-secondary-1 via-50%  to-transparent z-5  -mt-20 py-8 ">
           {/* <span className="text-3xl ">Ready when you are?</span> */}
           <InputComponent />
         </div>

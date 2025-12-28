@@ -90,7 +90,7 @@ export default function InputComponent() {
           placeholder="Ask anything"
           className={`${
             inputTextOverflow ? "flex" : "hidden"
-          } max-h-64 min-h-full border-0 ring-0 w-full max-w-full  bg-netural-1 rounded-b-none  rounded-t-lg `}
+          } max-h-64 min-h-full border-0 ring-0 md:w-full lg:w-[650px] xl:w-[750px]  bg-netural-1 rounded-b-none  rounded-t-lg `}
           autoFocus
           onChange={inputHandler}
           onKeyDown={(e) => keyHandler(e)}

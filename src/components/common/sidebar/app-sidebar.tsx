@@ -42,16 +42,20 @@ const items = [
 ];
 
 export function AppSidebar() {
-  const { state } = useSidebar();
+  const { state, toggleSidebar } = useSidebar();
 
   return (
     <Sidebar
       collapsible="icon"
-      color="bg-primary-1"
-      className=" bg-primary-1  text-textClr-1 group border-0 border-r-primary-1"
+      className={` text-textClr-1 ${
+        state === "collapsed"
+          ? "bg-secondary-1 cursor-ew-resize"
+          : "bg-primary-1"
+      } group border-0 border-r-primary-1 `}
+      onClick={state === "collapsed" ? toggleSidebar : undefined}
     >
       <SidebarContent
-        className=" text-textClr-1 relative"
+        className=" text-textClr-1 relative gap-0  "
         style={{
           scrollbarWidth: "auto",
           scrollbarColor: "#303030 transparent",
@@ -59,7 +63,11 @@ export function AppSidebar() {
       >
         <AppSidebarHeader state={state} />
 
-        <SidebarGroup className=" sticky top-12 bg-primary-1  z-30">
+        <SidebarGroup
+          className={`${
+            state === "collapsed" ? "bg-secondary-1" : "bg-primary-1"
+          } sticky top-12  z-30`}
+        >
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (

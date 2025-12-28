@@ -124,18 +124,18 @@ export default function ChatsList({state} : {state : "collapsed" | "expanded"}) 
         <SidebarGroupLabel asChild>
           <CollapsibleTrigger className="text-white/80 text-[14px]! pl-1! font-extralight! group">
             Your chats
-            <ChevronRight className="ml-2 hidden group-hover:flex transition-transform group-data-[state=open]/collapsible:rotate-90" />
+            <ChevronRight className="ml-2 lg:hidden lg:group-hover:flex transition-transform group-data-[state=open]/collapsible:rotate-90" />
           </CollapsibleTrigger>
         </SidebarGroupLabel>
         <CollapsibleContent>
           <SidebarGroupContent
             className={`${state === "collapsed" ? "hidden" : "flex"}`}
           >
-            <SidebarMenu className="gap-2 mt-3 font-light!">
+            <SidebarMenu className="gap-0 mt-3 font-light!">
               {conversationHistoryList.map((conversation, index) => (
                 <SidebarMenuItem
                   key={index}
-                  className="hover:bg-token-hover rounded-lg "
+                  className="hover:bg-token-hover rounded-lg cursor-pointer "
                 >
                   <SidebarMenuButton
                     asChild

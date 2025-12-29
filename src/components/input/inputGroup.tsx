@@ -19,15 +19,26 @@ export default function InputComponent() {
   const inputRef = useRef<HTMLInputElement>(null);
   const inputTextAreaRef = useRef<HTMLTextAreaElement>(null);
 
-  const submitHandler = (questionArg?: string) => {
+  const submitHandler = async (questionArg?: string) => {
     if (questionArg) {
       console.log(questionArg);
       return;
     }
 
+    const response = await fetch("/api", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ message: question }),
+    });
+
+    const answer = await response.json()
+
+    console.log(answer);
+
     setInputTextOverflow(false);
     setQuestion("");
-    console.log(question);
   };
 
   const keyHandler = (

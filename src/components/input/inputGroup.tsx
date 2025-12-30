@@ -10,6 +10,7 @@ import {
 import { ArrowUp, AudioLines, Mic, Plus } from "lucide-react";
 import { ChangeEvent, KeyboardEvent, useEffect, useRef, useState } from "react";
 import InputAddBtn from "./inputAddBtn";
+import useChat from "@/store/store";
 
 export default function InputComponent() {
   const [inputHasValue, setInputHasValue] = useState(false);
@@ -19,26 +20,37 @@ export default function InputComponent() {
   const inputRef = useRef<HTMLInputElement>(null);
   const inputTextAreaRef = useRef<HTMLTextAreaElement>(null);
 
+  const insertQuestion = useChat((state) => state.insertQuestion);
+  const insertAnswer = useChat((state) => state.insertAnswer);
+
   const submitHandler = async (questionArg?: string) => {
-    if (questionArg) {
-      console.log(questionArg);
-      return;
+    try {
+      if (questionArg) {
+        console.log(questionArg);
+        return;
+      }
+
+      const id = insertQuestion(question);
+
+      const response = await fetch("/api", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ message: question }),
+      });
+
+      const data = await response.json();
+
+      insertAnswer({ id, content: data.answer });
+
+      console.log(data);
+
+      setInputTextOverflow(false);
+      setQuestion("");
+    } catch (error) {
+      console.log(error);
     }
-
-    const response = await fetch("/api", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ message: question }),
-    });
-
-    const answer = await response.json()
-
-    console.log(answer);
-
-    setInputTextOverflow(false);
-    setQuestion("");
   };
 
   const keyHandler = (

@@ -5,6 +5,7 @@ import ConversationTools from "./conversationTools";
 import Question from "./question";
 import { useRef, useState } from "react";
 import ScrollBottomBtn from "./scrollBottomBtn";
+import useChat from "@/store/store";
 
 const conversationList = [
   {
@@ -62,14 +63,14 @@ const conversationList = [
 export default function Conversation() {
   const messagesRef = useRef<HTMLDivElement>(null);
 
+  // const [conversation , setConversation] = useState([])
+  const chats = useChat((state) => state.chats);
   const [showScrollBtn, setShowScrollBtn] = useState(false);
 
   const scrollHandler = () => {
     const el = messagesRef.current;
 
     if (!el) return;
-
-    console.log(showScrollBtn);
 
     const distanceFromBottom =
       el?.scrollHeight - el?.scrollTop - el?.clientHeight;
@@ -84,10 +85,10 @@ export default function Conversation() {
       ref={messagesRef}
       onScroll={scrollHandler}
     >
-      {conversationList.map((conversation) => (
-        <div key={conversation.id} className="flex flex-col gap-6">
-          <Question content={conversation.question} />
-          <Answer content={conversation.answer} />
+      {chats.map((chat) => (
+        <div key={chat.id} className="flex flex-col gap-6">
+          <Question content={chat.question} />
+          <Answer content={chat.answer} />
           <ConversationTools />
         </div>
       ))}

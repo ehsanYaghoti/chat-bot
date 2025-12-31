@@ -1,29 +1,41 @@
-import DOMPurify from 'dompurify';
+"use client";
 
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
-export default function Answer({ content }: { content: string }) {
+function CodeBlock({ inline, children }: any) {
+  const code = String(children).trim();
 
-    const safeHtml = DOMPurify.sanitize(content)
+  const copy = async () => {
+    await navigator.clipboard.writeText(code);
+  };
 
-//   const pRef = useRef<HTMLParagraphElement>(null);
-
-
-//   useEffect(() => {
-//     const parser = new DOMParser();
-
-//     const doc = parser.parseFromString(content, "text/html");
-
-
-//     console.log(doc.body)
-
-//     if (pRef.current !== null) pRef.current.appendChild(doc.body);
-
-//     return () => {};
-//   }, []);
+  if (inline) {
+    return <code>{children}</code>;
+  }
 
   return (
-    <div className=" w-full text-left" dir="ltr">
-      <p className="bg-transparent w-fit py-4 rounded-2xl  " dangerouslySetInnerHTML={{__html : safeHtml}} />
+    <div className="relative">
+      <button
+        onClick={copy}
+        className="absolute right-2 top-2 text-xs bg-gray-700 text-white px-2 py-1 rounded"
+      >
+        Copy
+      </button>
+      <pre>
+        <code>{code}</code>
+      </pre>
+    </div>
+  );
+}
+
+export default function Answer({ content }: { content: string }) {
+  // const safeHtml = DOMPurify.sanitize(content)
+
+  return (
+    <div className="prose prose-invert max-w-none w-full text-left py-4" dir="ltr">
+      {/* <p className="bg-transparent w-fit py-4 rounded-2xl  " dangerouslySetInnerHTML={{__html : safeHtml}} /> */}
+      <ReactMarkdown remarkPlugins={[remarkGfm]}  >{content}</ReactMarkdown>
     </div>
   );
 }

@@ -1,8 +1,11 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
+import AnswerLoading from "@/components/common/loadings/answerLoading";
+import { JSX } from "react";
+
 type Store = {
-  chats: { id: number; question: string; answer: string }[];
+  chats: { id: number; question: string; answer: string | JSX.Element }[];
   insertQuestion: (question: string) => number;
   insertAnswer: (answerPayload: { id: number; content: string }) => void;
 };
@@ -26,7 +29,7 @@ const useChat = create<Store>()(
               {
                 id: newId,
                 question,
-                answer: "Loading...",
+                answer: AnswerLoading(),
               },
             ],
           };

@@ -44,6 +44,7 @@ export default function InputComponent() {
 
       insertAnswer({ id, content: data.answer });
 
+
       console.log(data);
 
       setInputTextOverflow(false);

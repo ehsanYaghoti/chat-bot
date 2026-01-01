@@ -3,7 +3,7 @@
 import Answer from "./answer";
 import ConversationTools from "./conversationTools";
 import Question from "./question";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ScrollBottomBtn from "./scrollBottomBtn";
 import useChat from "@/store/store";
 
@@ -62,10 +62,15 @@ const conversationList = [
 
 export default function Conversation() {
   const messagesRef = useRef<HTMLDivElement>(null);
+  const bottomRef = useRef<HTMLDivElement>(null);
 
   // const [conversation , setConversation] = useState([])
   const chats = useChat((state) => state.chats);
   const [showScrollBtn, setShowScrollBtn] = useState(false);
+
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [chats.length]);
 
   const scrollHandler = () => {
     const el = messagesRef.current;
@@ -79,20 +84,28 @@ export default function Conversation() {
   };
 
   return (
+    // <div className=" w-full  flex items-center justify-center  overflow-auto " style={{scrollbarWidth : 'thin'}}>
     <main
-      className="flex flex-col gap-8 min-h-0 pb-20 px-4 flex-1 lg:w-[650px] xl:w-[750PX] overflow-y-auto  py-4 relative"
-      style={{ scrollbarWidth: "none" }}
+      className="flex flex-col gap-8 min-h-0 pb-20 overflow-y-hidden px-4  lg:w-[650px] xl:w-[750PX] max-w-[750px]  py-4 relative"
+      style={{ scrollbarWidth: "thin" }}
       ref={messagesRef}
       onScroll={scrollHandler}
     >
       {chats.map((chat) => (
-        <div key={chat.id} className="flex flex-col gap-6">
+        <div
+          key={chat.id}
+          className="flex flex-col gap-6"
+          style={{ scrollbarWidth: "thin" }}
+        >
           <Question content={chat.question} />
           <Answer content={chat.answer} />
           <ConversationTools />
         </div>
       ))}
       <ScrollBottomBtn visible={showScrollBtn} containerRef={messagesRef} />
+      {/* <AnswerLoading /> */}
+      <div ref={bottomRef}></div>
     </main>
+    // </div>
   );
 }

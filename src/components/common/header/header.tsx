@@ -17,8 +17,8 @@ const Header = () => {
 
   return (
     <header
-      className=" w-full h-header-height py-3 px-4 flex items-center justify-between
-         bg-secondary-1 border-b border-b-white/10 text-textClr-1  z-40 flex-[0_0_auto] "
+      className="w-fulll min-w-full  z-40 sticky top-0  h-header-height py-3 px-4 flex items-center justify-between
+         bg-secondary-1 border-b border-b-white/10 text-textClr-1  "
     >
       <div className="flex items-center gap-2">
         <SidebarTrigger className="flex md:hidden" />

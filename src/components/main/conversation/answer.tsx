@@ -1,5 +1,6 @@
 "use client";
 
+import { JSX } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
@@ -29,13 +30,20 @@ function CodeBlock({ inline, children }: any) {
   );
 }
 
-export default function Answer({ content }: { content: string }) {
+export default function Answer({ content }: { content: string | JSX.Element }) {
   // const safeHtml = DOMPurify.sanitize(content)
 
   return (
-    <div className="prose prose-invert max-w-none w-full text-left py-4" dir="ltr">
+    <div
+      className="prose prose-invert max-w-none grow flex-1 w-full text-left py-4 overflow-y-hidden"
+      dir="ltr"
+    >
       {/* <p className="bg-transparent w-fit py-4 rounded-2xl  " dangerouslySetInnerHTML={{__html : safeHtml}} /> */}
-      <ReactMarkdown remarkPlugins={[remarkGfm]}  >{content}</ReactMarkdown>
+      {typeof content === "string" ? (
+        <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown>
+      ) : (
+        content
+      )}
     </div>
   );
 }

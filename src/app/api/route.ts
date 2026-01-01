@@ -1,4 +1,10 @@
-import { Ollama } from "ollama";
+import { ChatResponse, Ollama } from "ollama";
+
+type ChatError = {
+  error: string;
+  status_code: number;
+  name: string;
+};
 
 export async function POST(req: Request) {
   try {
@@ -16,10 +22,34 @@ export async function POST(req: Request) {
       messages: [{ role: "user", content: message }],
     });
 
-    console.log(response)
+    console.log(response);
 
     return Response.json({ answer: response.message.content });
-  } catch (error) {
-    console.log(error)
+  } catch (error: unknown) {
+    // console.log(error)
+
+    if (typeof error === "object" && error !== null) {
+      const err = error as {
+        error?: string;
+        name?: string;
+        status_code?: number;
+      };
+
+      if (err.status_code === 403) {
+        return Response.json(
+          { answer: "Access forbidden. Check API key or region." },
+          { status: 403 }
+        );
+      }
+
+
+      return Response.json(
+          { answer: err.error ?? "Unknown error occured" },
+          { status: err.status_code ?? 500 }
+        );
+
+    }
+
+    return Response.json({ answer: "Unexpected Error" } , {status : 500});
   }
 }

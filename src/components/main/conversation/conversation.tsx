@@ -4,8 +4,7 @@ import Answer from "./answer";
 import ConversationTools from "./conversationTools";
 import Question from "./question";
 import { useEffect, useRef, useState } from "react";
-import ScrollBottomBtn from "./scrollBottomBtn";
-import useChat from "@/store/store";
+import {useChat, useStyle} from "@/store/store";
 
 const conversationList = [
   {
@@ -61,35 +60,42 @@ const conversationList = [
 ];
 
 export default function Conversation() {
-  const messagesRef = useRef<HTMLDivElement>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  // const [conversation , setConversation] = useState([])
   const chats = useChat((state) => state.chats);
-  const [showScrollBtn, setShowScrollBtn] = useState(false);
+  const toggleScrollBtnVisible = useStyle(
+    (state) => state.toggleScrollBtnVisible
+  );
+
+  useEffect(() => {
+    if (!containerRef.current || !bottomRef.current) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        console.log(entry.isIntersecting);
+        toggleScrollBtnVisible(!entry.isIntersecting);
+      },
+      {
+        root: null,
+        threshold: 0,
+      }
+    );
+
+    observer.observe(bottomRef.current);
+    console.log(observer.observe(bottomRef.current));
+
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [chats.length]);
 
-  const scrollHandler = () => {
-    const el = messagesRef.current;
-
-    if (!el) return;
-
-    const distanceFromBottom =
-      el?.scrollHeight - el?.scrollTop - el?.clientHeight;
-
-    setShowScrollBtn(distanceFromBottom > 100);
-  };
-
   return (
-    // <div className=" w-full  flex items-center justify-center  overflow-auto " style={{scrollbarWidth : 'thin'}}>
     <main
       className="flex flex-col gap-8 min-h-0 pb-20 overflow-y-hidden px-4  lg:w-[650px] xl:w-[750PX] max-w-[750px]  py-4 relative"
-      style={{ scrollbarWidth: "thin" }}
-      ref={messagesRef}
-      onScroll={scrollHandler}
+      ref={containerRef}
     >
       {chats.map((chat) => (
         <div
@@ -102,10 +108,7 @@ export default function Conversation() {
           <ConversationTools />
         </div>
       ))}
-      <ScrollBottomBtn visible={showScrollBtn} containerRef={messagesRef} />
-      {/* <AnswerLoading /> */}
       <div ref={bottomRef}></div>
     </main>
-    // </div>
   );
 }

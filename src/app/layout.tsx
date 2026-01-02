@@ -3,8 +3,8 @@ import { Geist, Geist_Mono , Inter } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({
+    variable: "--font-inter",
     subsets : ['latin'],
-
 })
 
 const geistSans = Geist({
@@ -30,7 +30,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${inter.className} antialiased font-display `}
+        className={`${geistSans.variable} ${geistMono.variable} ${inter.className} bg-secondary-1 antialiased font-display scroll-smooth `}
       >
         {children}
       </body>

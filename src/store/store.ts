@@ -4,13 +4,24 @@ import { persist } from "zustand/middleware";
 import AnswerLoading from "@/components/common/loadings/answerLoading";
 import { JSX } from "react";
 
-type Store = {
+type StoreStyle = {
+  scrollBtnVisible: boolean;
+  toggleScrollBtnVisible: (isIntersecting: boolean) => void;
+};
+
+type StoreChat = {
   chats: { id: number; question: string; answer: string | JSX.Element }[];
   insertQuestion: (question: string) => number;
   insertAnswer: (answerPayload: { id: number; content: string }) => void;
 };
 
-const useChat = create<Store>()(
+export const useStyle = create<StoreStyle>((set) => ({
+  scrollBtnVisible: false,
+  toggleScrollBtnVisible: (isIntersecting) =>
+    set((state) => ({ scrollBtnVisible: isIntersecting })),
+}));
+
+export const useChat = create<StoreChat>()(
   persist(
     (set) => ({
       chats: [],
@@ -48,5 +59,3 @@ const useChat = create<Store>()(
     { name: "chat-storage" }
   )
 );
-
-export default useChat;

@@ -2,16 +2,30 @@
 
 import { Button } from "@/components/ui/button";
 import { ArrowDown } from "lucide-react";
-import { RefObject, useRef, useState } from "react";
+import { RefObject } from "react";
 import { cn } from "@/lib/utils";
+import { useStyle} from "@/store/store";
 
-export default function ScrollBottomBtn({visible , containerRef} : {visible : boolean , containerRef ?: RefObject<HTMLDivElement | null>}) {
+export default function ScrollBottomBtn({
+  containerRef,
+}: {
+  containerRef?: RefObject<HTMLDivElement | null>;
+}) {
+  const visible = useStyle((store) => store.scrollBtnVisible);
 
   const scrollBottomHandler = () => {
-    window.document.body?.scrollTo({
-      top: window.document.body.scrollHeight,
-      behavior: "smooth",
-    });
+    console.log(containerRef);
+    if (containerRef) {
+      containerRef?.current?.scrollTo({
+        top: containerRef.current?.scrollHeight,
+        behavior: "smooth",
+      });
+    } else {
+      document.documentElement.scrollTo({
+        top: document.documentElement.scrollHeight,
+        behavior: "smooth",
+      });
+    }
   };
 
   return (

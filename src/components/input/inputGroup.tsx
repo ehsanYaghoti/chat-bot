@@ -10,7 +10,7 @@ import {
 import { ArrowUp, AudioLines, Mic, Plus } from "lucide-react";
 import { ChangeEvent, KeyboardEvent, useEffect, useRef, useState } from "react";
 import InputAddBtn from "./inputAddBtn";
-import useChat from "@/store/store";
+import {useChat} from "@/store/store";
 
 export default function InputComponent() {
   const [inputHasValue, setInputHasValue] = useState(false);

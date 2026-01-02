@@ -1,16 +1,10 @@
-"use client";
-
 import Header from "@/components/common/header/header";
 import InputBar from "@/components/input/inputBar";
 import SidebarLayout from "@/components/layouts/sidebarLayout";
 import Conversation from "@/components/main/conversation/conversation";
-
-import { useRef, useState } from "react";
 import ScrollBottomBtn from "@/components/main/conversation/scrollBottomBtn";
 
 export default function Home() {
-
-
   return (
     <SidebarLayout>
       <div
@@ -20,7 +14,7 @@ export default function Home() {
         <Header />
         <Conversation />
         <InputBar />
-        <ScrollBottomBtn  visible={true} />
+        <ScrollBottomBtn />
       </div>
     </SidebarLayout>
   );

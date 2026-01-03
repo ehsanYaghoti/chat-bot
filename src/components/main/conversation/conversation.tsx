@@ -1,10 +1,10 @@
 "use client";
 
 import Answer from "./answer";
-import ConversationTools from "./conversationTools";
 import Question from "./question";
 import { useEffect, useRef, useState } from "react";
 import {useChat, useStyle} from "@/store/store";
+import AnswerTools from "./answerTools";
 
 const conversationList = [
   {
@@ -73,7 +73,6 @@ export default function Conversation() {
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        console.log(entry.isIntersecting);
         toggleScrollBtnVisible(!entry.isIntersecting);
       },
       {
@@ -83,7 +82,6 @@ export default function Conversation() {
     );
 
     observer.observe(bottomRef.current);
-    console.log(observer.observe(bottomRef.current));
 
     return () => observer.disconnect();
   }, []);
@@ -103,9 +101,9 @@ export default function Conversation() {
           className="flex flex-col gap-6"
           style={{ scrollbarWidth: "thin" }}
         >
-          <Question content={chat.question} />
+          <Question id={chat.id} content={chat.question} />
           <Answer content={chat.answer} />
-          <ConversationTools />
+          <AnswerTools />
         </div>
       ))}
       <div ref={bottomRef}></div>

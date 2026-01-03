@@ -15,18 +15,20 @@ export async function POST(req: Request) {
       headers: {
         Authorization: `Bearer ${process.env.OLLAMA_API_KEY}`,
       },
+      
     });
 
     const response = await ollama.chat({
       model: "gpt-oss:20b-cloud",
       messages: [{ role: "user", content: message }],
+
     });
 
     console.log(response);
 
     return Response.json({ answer: response.message.content });
   } catch (error: unknown) {
-    // console.log(error)
+    console.log(error)
 
     if (typeof error === "object" && error !== null) {
       const err = error as {

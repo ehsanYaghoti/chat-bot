@@ -4,6 +4,11 @@ import { persist } from "zustand/middleware";
 import AnswerLoading from "@/components/common/loadings/answerLoading";
 import { JSX } from "react";
 
+type StoreLoading = {
+  loading: boolean;
+  setLoading: (isLoading: boolean) => void;
+};
+
 type StoreStyle = {
   scrollBtnVisible: boolean;
   toggleScrollBtnVisible: (isIntersecting: boolean) => void;
@@ -14,6 +19,11 @@ type StoreChat = {
   insertQuestion: (question: string) => number;
   insertAnswer: (answerPayload: { id: number; content: string }) => void;
 };
+
+export const useLoading = create<StoreLoading>((set) => ({
+  loading: false,
+  setLoading: (isLoading) => set((state) => ({ loading: isLoading })),
+}))
 
 export const useStyle = create<StoreStyle>((set) => ({
   scrollBtnVisible: false,

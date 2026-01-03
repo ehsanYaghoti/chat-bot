@@ -7,15 +7,16 @@ import {
   InputGroupInput,
   InputGroupTextarea,
 } from "@/components/ui/input-group";
-import { ArrowUp, AudioLines, Mic, Plus } from "lucide-react";
+import { ArrowUp, AudioLines, Mic, Plus, Square } from "lucide-react";
 import { ChangeEvent, KeyboardEvent, useEffect, useRef, useState } from "react";
 import InputAddBtn from "./inputAddBtn";
-import {useChat} from "@/store/store";
+import { useChat, useLoading } from "@/store/store";
 
 export default function InputComponent() {
   const [inputHasValue, setInputHasValue] = useState(false);
   const [inputTextOverflow, setInputTextOverflow] = useState(false);
   const [question, setQuestion] = useState("");
+  const { loading, setLoading } = useLoading((state) => state);
 
   const inputRef = useRef<HTMLInputElement>(null);
   const inputTextAreaRef = useRef<HTMLTextAreaElement>(null);
@@ -23,13 +24,11 @@ export default function InputComponent() {
   const insertQuestion = useChat((state) => state.insertQuestion);
   const insertAnswer = useChat((state) => state.insertAnswer);
 
-  const submitHandler = async (questionArg?: string) => {
+  const submitHandler = async () => {
     try {
-      if (questionArg) {
-        console.log(questionArg);
-        return;
-      }
+      if (question.length === 0) return;
 
+      setLoading(true);
       const id = insertQuestion(question);
 
       const response = await fetch("/api", {
@@ -44,11 +43,9 @@ export default function InputComponent() {
 
       insertAnswer({ id, content: data.answer });
 
-
-      console.log(data);
-
       setInputTextOverflow(false);
       setQuestion("");
+      setLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -99,6 +96,8 @@ export default function InputComponent() {
     }
   };
 
+  const stopChatHandler = () => {};
+
   return (
     <div className=" sticky bottom-0 w-full flex items-center justify-center  flex-[0_0_auto] transition-all">
       <InputGroup
@@ -112,6 +111,7 @@ export default function InputComponent() {
           id="textarea-code-32"
           ref={inputTextAreaRef}
           placeholder="Ask anything"
+          disabled={loading}
           className={`${
             inputTextOverflow ? "flex" : "hidden"
           } max-h-64 min-h-full border-0 ring-0 md:w-full lg:w-[650px] xl:w-[750px]  bg-netural-1 rounded-b-none  rounded-t-lg `}
@@ -130,6 +130,7 @@ export default function InputComponent() {
             <InputAddBtn />
           </InputGroupAddon>
           <InputGroupInput
+            disabled={loading}
             placeholder="Ask anything"
             className={`${
               inputTextOverflow ? "invisible" : "flex"
@@ -144,13 +145,22 @@ export default function InputComponent() {
             <Button className="bg-transparent hover:bg-[#454545] rounded-full w-10 h-10  cursor-pointer ">
               <Mic />
             </Button>
-            <Button
-              onClick={() => submitHandler()}
-              disabled={!inputHasValue}
-              className={`text-primary-1 bg-textClr-1 hover:bg-[#C1C1C1]  rounded-full w-10 h-10 cursor-pointer text-sm `}
-            >
-              <ArrowUp />
-            </Button>
+            {!loading ? (
+              <Button
+                onClick={() => submitHandler()}
+                disabled={!inputHasValue}
+                className={`text-primary-1 bg-textClr-1 hover:bg-[#C1C1C1]  rounded-full w-10 h-10 cursor-pointer text-sm `}
+              >
+                <ArrowUp />
+              </Button>
+            ) : (
+              <Button
+                onClick={() => stopChatHandler()}
+                className={`bg-textClr-1/10 text-textClr-1 hover:bg-textClr-1/5  rounded-full w-10 h-10 cursor-pointer text-sm `}
+              >
+                <Square fill="#ffffde" />
+              </Button>
+            )}
           </InputGroupAddon>
         </InputGroup>
       </InputGroup>

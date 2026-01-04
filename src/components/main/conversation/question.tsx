@@ -1,13 +1,11 @@
 "use client";
 
-import { Check, Copy, Pen } from "lucide-react";
+import { Pen } from "lucide-react";
 import { Button } from "../../ui/button";
-import copyToClipboard from "@/utils/copyClipBoard";
-import { useEffect, useRef, useState } from "react";
-import { toast } from "sonner";
+import { useRef, useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import { useChat } from "@/store/store";
-import useClipboard from "@/hooks/use-clipBoard";
+import ClipboardBtn from "@/components/common/buttons/clipboardBtn";
 
 export default function Question({
   id,
@@ -18,8 +16,6 @@ export default function Question({
 }) {
   const [editMode, setEditMode] = useState(false);
   const editInput = useRef<HTMLTextAreaElement>(null);
-
-  const [isCopied, copyHandler] = useClipboard({ content });
 
   const editQuestion = useChat((store) => store.editQuestion);
 
@@ -77,23 +73,7 @@ export default function Question({
         id={`question-${id}`}
         className="flex opacity-0 group-hover:opacity-100 transition-opacity duration-500 items-center self-end gap-0.5"
       >
-        <Button
-          onClick={copyHandler}
-          disabled={isCopied as boolean}
-          className="bg-transparent hover:bg-netural-1 cursor-pointer"
-          aria-label="Copy question"
-          aria-live="polite"
-        >
-          {!isCopied ? (
-            <Copy className="" />
-          ) : (
-            <Check
-              className={`${
-                isCopied ? "opacity-100" : "opacity-0"
-              } transition-opacity delay-200 duration-300 `}
-            />
-          )}
-        </Button>
+        <ClipboardBtn content={content} />
         <Button
           onClick={() => {
             setEditMode(!editMode);

@@ -1,5 +1,6 @@
 "use client";
 
+import { JSX } from "react";
 import {
   Copy,
   Ellipsis,
@@ -10,20 +11,20 @@ import {
 } from "lucide-react";
 import { Button } from "../../ui/button";
 import { useLoading } from "@/store/store";
+import ClipboardBtn from "@/components/common/buttons/clipboardBtn";
 
-export default function AnswerTools() {
+export default function AnswerTools({
+  id,
+  content,
+}: {
+  id: number;
+  content: string | JSX.Element;
+}) {
   const loading = useLoading((state) => state.loading);
 
-
-  const copyHandler = () => {
-    // window.navigator.clipboard 
-  }
-
   return (
-    <div className={`${loading ? 'hidden' : 'flex'} items-center gap-0.5`}>
-      <Button onClick={copyHandler} className="bg-transparent hover:bg-netural-1 cursor-pointer">
-        <Copy />
-      </Button>
+    <div className={`${loading ? "hidden" : "flex"} items-center gap-0.5`}>
+      <ClipboardBtn content={String(content)} />
       <Button className="bg-transparent hover:bg-netural-1 cursor-pointer">
         <ThumbsUp />
       </Button>

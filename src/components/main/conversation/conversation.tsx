@@ -3,7 +3,7 @@
 import Answer from "./answer";
 import Question from "./question";
 import { useEffect, useRef, useState } from "react";
-import {useChat, useStyle} from "@/store/store";
+import { useChat, useStyle } from "@/store/store";
 import AnswerTools from "./answerTools";
 
 const conversationList = [
@@ -99,11 +99,9 @@ export default function Conversation() {
         <div
           key={chat.id}
           className="flex flex-col gap-6"
-          style={{ scrollbarWidth: "thin" }}
         >
           <Question id={chat.id} content={chat.question} />
-          <Answer content={chat.answer} />
-          <AnswerTools />
+          <Answer id={chat.id} content={chat.answer} />
         </div>
       ))}
       <div ref={bottomRef}></div>

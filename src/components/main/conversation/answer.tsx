@@ -3,6 +3,7 @@
 import { JSX } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import AnswerTools from "./answerTools";
 
 function CodeBlock({ inline, children }: any) {
   const code = String(children).trim();
@@ -30,20 +31,27 @@ function CodeBlock({ inline, children }: any) {
   );
 }
 
-export default function Answer({ content }: { content: string | JSX.Element }) {
-  // const safeHtml = DOMPurify.sanitize(content)
-
+export default function Answer({
+  id,
+  content,
+}: {
+  id: number;
+  content: string | JSX.Element;
+}) {
   return (
-    <div
-      className="prose prose-invert max-w-none grow flex-1 w-full text-left py-4 overflow-y-hidden"
-      dir="ltr"
-    >
-      {/* <p className="bg-transparent w-fit py-4 rounded-2xl  " dangerouslySetInnerHTML={{__html : safeHtml}} /> */}
-      {typeof content === "string" ? (
-        <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown>
-      ) : (
-        content
-      )}
+    <div id={`answer-${id}`} className="flex flex-col gap-4">
+      <div
+        className="prose prose-invert max-w-none grow flex-1 w-full text-left py-4 overflow-y-hidden"
+        dir="ltr"
+      >
+        {typeof content === "string" ? (
+          <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown>
+        ) : (
+          content
+        )}
+      </div>
+
+      <AnswerTools id={id} content={content} />
     </div>
   );
 }

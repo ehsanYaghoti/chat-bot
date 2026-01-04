@@ -17,6 +17,7 @@ type StoreStyle = {
 type StoreChat = {
   chats: { id: number; question: string; answer: string | JSX.Element }[];
   insertQuestion: (question: string) => number;
+  editQuestion : (editPayload : {id : number ; content : string}) => void;
   insertAnswer: (answerPayload: { id: number; content: string }) => void;
 };
 
@@ -57,6 +58,13 @@ export const useChat = create<StoreChat>()(
         });
 
         return newId;
+      },
+      editQuestion : ({id , content}) => {
+        set((state) => ({
+          chats: state.chats.map((chat) =>
+            chat.id === id ? { ...chat, question : content } : chat
+          ),
+        }));
       },
       insertAnswer: ({ id, content }) => {
         set((state) => ({

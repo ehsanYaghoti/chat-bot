@@ -98,10 +98,10 @@ export default function Conversation() {
       {chats.map((chat) => (
         <div
           key={chat.id}
-          className="flex flex-col gap-6"
+          className="flex flex-col gap-1"
         >
           <Question id={chat.id} content={chat.question} />
-          <Answer id={chat.id} content={chat.answer} />
+          <Answer id={chat.id} answer={chat.answer} />
         </div>
       ))}
       <div ref={bottomRef}></div>

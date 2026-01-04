@@ -15,16 +15,22 @@ type StoreStyle = {
 };
 
 type StoreChat = {
-  chats: { id: number; question: string; answer: string | JSX.Element }[];
+  chats: {
+    id: number;
+    question: string;
+    answer: { content: string | JSX.Element; liked?: boolean };
+  }[];
   insertQuestion: (question: string) => number;
-  editQuestion : (editPayload : {id : number ; content : string}) => void;
+  editQuestion: (editPayload: { id: number; content: string }) => void;
   insertAnswer: (answerPayload: { id: number; content: string }) => void;
+  updateLikeAnswer: (payload: { id: number; isLiked: boolean }) => void;
+  cancelLikeAnswer: (payload: { id: number }) => void;
 };
 
 export const useLoading = create<StoreLoading>((set) => ({
   loading: false,
   setLoading: (isLoading) => set((state) => ({ loading: isLoading })),
-}))
+}));
 
 export const useStyle = create<StoreStyle>((set) => ({
   scrollBtnVisible: false,
@@ -51,7 +57,7 @@ export const useChat = create<StoreChat>()(
               {
                 id: newId,
                 question,
-                answer: AnswerLoading(),
+                answer: { content: AnswerLoading() },
               },
             ],
           };
@@ -59,17 +65,35 @@ export const useChat = create<StoreChat>()(
 
         return newId;
       },
-      editQuestion : ({id , content}) => {
+      editQuestion: ({ id, content }) => {
         set((state) => ({
           chats: state.chats.map((chat) =>
-            chat.id === id ? { ...chat, question : content } : chat
+            chat.id === id ? { ...chat, question: content } : chat
           ),
         }));
       },
       insertAnswer: ({ id, content }) => {
         set((state) => ({
           chats: state.chats.map((chat) =>
-            chat.id === id ? { ...chat, answer: content } : chat
+            chat.id === id ? { ...chat, answer: { content } } : chat
+          ),
+        }));
+      },
+      updateLikeAnswer: ({ id, isLiked }) => {
+        set((state) => ({
+          chats: state.chats.map((chat) =>
+            chat.id === id
+              ? { ...chat, answer: { ...chat.answer, liked: isLiked } }
+              : chat
+          ),
+        }));
+      },
+      cancelLikeAnswer: ({ id }) => {
+        set((state) => ({
+          chats: state.chats.map((chat) =>
+            chat.id === id
+              ? { ...chat, answer: { ...chat.answer, liked: undefined } }
+              : chat
           ),
         }));
       },

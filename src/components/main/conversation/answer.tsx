@@ -32,11 +32,11 @@ function CodeBlock({ inline, children }: any) {
 }
 
 export default function Answer({
+  answer: { content, liked },
   id,
-  content,
 }: {
   id: number;
-  content: string | JSX.Element;
+  answer: { content: string | JSX.Element; liked?: boolean };
 }) {
   return (
     <div id={`answer-${id}`} className="flex flex-col gap-4">
@@ -51,7 +51,7 @@ export default function Answer({
         )}
       </div>
 
-      <AnswerTools id={id} content={content} />
+      <AnswerTools id={id} content={content} likedInit={liked} />
     </div>
   );
 }

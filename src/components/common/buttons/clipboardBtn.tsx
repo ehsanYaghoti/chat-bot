@@ -16,6 +16,7 @@ export default function ClipboardBtn({
       onClick={copyHandler}
       disabled={isCopied as boolean}
       className="bg-transparent hover:bg-netural-1 cursor-pointer"
+      size='icon-sm'
       aria-label="Copy question"
       aria-live="polite"
     >

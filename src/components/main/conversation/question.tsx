@@ -79,6 +79,7 @@ export default function Question({
             setEditMode(!editMode);
           }}
           className="bg-transparent hover:bg-netural-1 cursor-pointer"
+          size='icon-sm'
         >
           <Pen />
         </Button>

@@ -4,10 +4,10 @@ import { Check, Copy, Pen } from "lucide-react";
 import { Button } from "../../ui/button";
 import copyToClipboard from "@/utils/copyClipBoard";
 import { useEffect, useRef, useState } from "react";
-import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { Textarea } from "@/components/ui/textarea";
 import { useChat } from "@/store/store";
+import useClipboard from "@/hooks/use-clipBoard";
 
 export default function Question({
   id,
@@ -16,39 +16,19 @@ export default function Question({
   id: number;
   content: string;
 }) {
-  const [isCopied, setIsCopied] = useState(false);
   const [editMode, setEditMode] = useState(false);
   const editInput = useRef<HTMLTextAreaElement>(null);
 
+  const [isCopied, copyHandler] = useClipboard({ content });
+
   const editQuestion = useChat((store) => store.editQuestion);
 
-  useEffect(() => {
-    if (!isCopied) return;
-
-    const id = setTimeout(() => {
-      setIsCopied(false);
-    }, 600);
-
-    return () => clearTimeout(id);
-  }, [isCopied]);
-
   const editHandler = () => {
-
     if (editInput.current === null) return;
 
     editQuestion({ id: id, content: editInput.current.value });
 
     setEditMode(false);
-  };
-
-  const copyHandler = async () => {
-    try {
-      await copyToClipboard(content);
-      setIsCopied(true);
-    } catch (error) {
-      console.log(error);
-      toast.error("copy was not successful");
-    }
   };
 
   return (
@@ -99,7 +79,7 @@ export default function Question({
       >
         <Button
           onClick={copyHandler}
-          disabled={isCopied}
+          disabled={isCopied as boolean}
           className="bg-transparent hover:bg-netural-1 cursor-pointer"
           aria-label="Copy question"
           aria-live="polite"

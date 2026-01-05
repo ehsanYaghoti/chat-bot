@@ -24,7 +24,7 @@ export async function POST(req: Request) {
 
     });
 
-    // console.log(response);
+    console.log(response);
 
     return Response.json({ answer: response.message.content });
   } catch (error: unknown) {

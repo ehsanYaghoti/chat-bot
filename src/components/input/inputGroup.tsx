@@ -17,21 +17,27 @@ export default function InputComponent() {
   const [inputHasValue, setInputHasValue] = useState(false);
   const [inputTextOverflow, setInputTextOverflow] = useState(false);
   const [question, setQuestion] = useState("");
-  const { loading, setLoading } = useLoading((state) => state);
-  const { setErrorAnswer } = useChat((state) => state);
 
+  const idRef = useRef<number>(null);
+  const controllerRef = useRef<AbortController | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const inputTextAreaRef = useRef<HTMLTextAreaElement>(null);
 
-  const insertQuestion = useChat((state) => state.insertQuestion);
-  const insertAnswer = useChat((state) => state.insertAnswer);
+  const { loading, setLoading } = useLoading((state) => state);
+  const { setErrorAnswer, insertQuestion, insertAnswer, deleteChat } = useChat(
+    (state) => state
+  );
 
   const submitHandler = async () => {
     try {
       if (question.length === 0) return;
 
+      controllerRef.current = new AbortController();
+      const signal = controllerRef.current.signal;
+
       setLoading(true);
       const id = insertQuestion(question);
+      idRef.current = id;
 
       const response = await fetch("/api", {
         method: "POST",
@@ -39,8 +45,10 @@ export default function InputComponent() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ message: question }),
+        signal,
       });
 
+      setQuestion("");
       const data = await response.json();
 
       const status = response.status;
@@ -53,10 +61,15 @@ export default function InputComponent() {
       }
 
       setLoading(false);
-      setQuestion("");
     } catch (error) {
-      console.log(error);
-      toast.error("Request was not successfull");
+      if (typeof error === "string") {
+        toast.error(error);
+      } else {
+        toast.error("Request was not successfull");
+      }
+      deleteChat({ id: idRef.current as number });
+      setLoading(false);
+      setQuestion("");
     }
   };
 
@@ -105,7 +118,9 @@ export default function InputComponent() {
     }
   };
 
-  const stopChatHandler = () => {};
+  const stopChatHandler = () => {
+    if (controllerRef.current) controllerRef.current.abort("abort by user");
+  };
 
   return (
     <div className=" sticky bottom-0 w-full flex items-center justify-center  flex-[0_0_auto] transition-all">

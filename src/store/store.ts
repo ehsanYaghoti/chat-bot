@@ -26,6 +26,7 @@ type StoreChat = {
   updateLikeAnswer: (payload: { id: number; isLiked: boolean }) => void;
   cancelLikeAnswer: (payload: { id: number }) => void;
   setErrorAnswer: (payload: { id: number }) => void;
+  deleteChat: (payload: { id: number }) => void;
 };
 
 export const useLoading = create<StoreLoading>((set) => ({
@@ -105,6 +106,11 @@ export const useChat = create<StoreChat>()(
               ? { ...chat, answer: { ...chat.answer, err: true } }
               : chat
           ),
+        }));
+      },
+      deleteChat: ({ id }) => {
+        set((state) => ({
+          chats: state.chats.filter((item) => item.id !== id),
         }));
       },
     }),

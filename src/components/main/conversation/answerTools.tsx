@@ -49,7 +49,7 @@ export default function AnswerTools({
   };
 
   return (
-    <div className={`${loading ? "hidden" : "flex"} items-center gap-0.5`}>
+    <div className={`${loading ? "opacity-0 pointer-events-none" : "opacity-100 pointer-events-auto"} transition-opacity flex items-center gap-0.5`}>
       <ClipboardBtn content={String(content)} />
       {liked === undefined ? (
         <>

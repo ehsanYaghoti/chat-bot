@@ -92,7 +92,7 @@ export default function Conversation() {
 
   return (
     <main
-      className="flex flex-col gap-8 min-h-0 pb-20 overflow-y-hidden px-4  lg:w-[650px] xl:w-[750PX] max-w-[750px]  py-4 relative"
+      className="flex flex-col gap-8 min-h-0 pb-8 overflow-y-hidden px-4 xl:px-0 pt-4 lg:w-[650px] xl:w-[750PX] max-w-[750px]   relative"
       ref={containerRef}
     >
       {chats.map((chat) => (
@@ -104,7 +104,7 @@ export default function Conversation() {
           <Answer id={chat.id} answer={chat.answer} />
         </div>
       ))}
-      <div ref={bottomRef}></div>
+      <div ref={bottomRef} className="h-[calc(-350px+100vh)]  grow" ></div>
     </main>
   );
 }

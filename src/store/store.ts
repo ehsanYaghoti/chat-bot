@@ -18,13 +18,14 @@ type StoreChat = {
   chats: {
     id: number;
     question: string;
-    answer: { content: string | JSX.Element; liked?: boolean };
+    answer: { content: string | JSX.Element; liked?: boolean; err?: boolean };
   }[];
   insertQuestion: (question: string) => number;
   editQuestion: (editPayload: { id: number; content: string }) => void;
   insertAnswer: (answerPayload: { id: number; content: string }) => void;
   updateLikeAnswer: (payload: { id: number; isLiked: boolean }) => void;
   cancelLikeAnswer: (payload: { id: number }) => void;
+  setErrorAnswer: (payload: { id: number }) => void;
 };
 
 export const useLoading = create<StoreLoading>((set) => ({
@@ -93,6 +94,15 @@ export const useChat = create<StoreChat>()(
           chats: state.chats.map((chat) =>
             chat.id === id
               ? { ...chat, answer: { ...chat.answer, liked: undefined } }
+              : chat
+          ),
+        }));
+      },
+      setErrorAnswer: ({ id }) => {
+        set((state) => ({
+          chats: state.chats.map((chat) =>
+            chat.id === id
+              ? { ...chat, answer: { ...chat.answer, err: true } }
               : chat
           ),
         }));

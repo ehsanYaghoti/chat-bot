@@ -11,12 +11,14 @@ import { ArrowUp, AudioLines, Mic, Plus, Square } from "lucide-react";
 import { ChangeEvent, KeyboardEvent, useEffect, useRef, useState } from "react";
 import InputAddBtn from "./inputAddBtn";
 import { useChat, useLoading } from "@/store/store";
+import { toast } from "sonner";
 
 export default function InputComponent() {
   const [inputHasValue, setInputHasValue] = useState(false);
   const [inputTextOverflow, setInputTextOverflow] = useState(false);
   const [question, setQuestion] = useState("");
   const { loading, setLoading } = useLoading((state) => state);
+  const { setErrorAnswer } = useChat((state) => state);
 
   const inputRef = useRef<HTMLInputElement>(null);
   const inputTextAreaRef = useRef<HTMLTextAreaElement>(null);
@@ -41,13 +43,20 @@ export default function InputComponent() {
 
       const data = await response.json();
 
+      const status = response.status;
+
       insertAnswer({ id, content: data.answer });
 
       setInputTextOverflow(false);
-      setQuestion("");
+      if (status !== 200) {
+        setErrorAnswer({ id });
+      }
+
       setLoading(false);
+      setQuestion("");
     } catch (error) {
       console.log(error);
+      toast.error("Request was not successfull");
     }
   };
 

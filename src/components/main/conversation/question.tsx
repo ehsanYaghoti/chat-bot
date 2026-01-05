@@ -33,7 +33,7 @@ export default function Question({
         <p
           className={`${
             editMode ? "hidden" : "flex"
-          } bg-netural-1 w-fit p-4 rounded-3xl whitespace-pre-wrap text-left  `}
+          } bg-netural-1 w-fit p-4 rounded-3xl max-w-[75%] whitespace-pre-line text-left  `}
         >
           {content}
         </p>

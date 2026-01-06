@@ -1,6 +1,6 @@
 "use client";
 
-import { Check, Copy, Pen } from "lucide-react";
+import { Check, Copy } from "lucide-react";
 import { Button } from "../../ui/button";
 import useClipboard from "@/hooks/use-clipBoard";
 

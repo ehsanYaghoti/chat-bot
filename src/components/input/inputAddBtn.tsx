@@ -27,10 +27,8 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
-import Link from "next/link";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
-import Logo from "../common/logo";
 import { Label } from "../ui/label";
 
 export default function InputAddBtn() {

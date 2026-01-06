@@ -31,13 +31,13 @@ type StoreChat = {
 
 export const useLoading = create<StoreLoading>((set) => ({
   loading: false,
-  setLoading: (isLoading) => set((state) => ({ loading: isLoading })),
+  setLoading: (isLoading) => set(() => ({ loading: isLoading })),
 }));
 
 export const useStyle = create<StoreStyle>((set) => ({
   scrollBtnVisible: false,
   toggleScrollBtnVisible: (isIntersecting) =>
-    set((state) => ({ scrollBtnVisible: isIntersecting })),
+    set(() => ({ scrollBtnVisible: isIntersecting })),
 }));
 
 export const useChat = create<StoreChat>()(

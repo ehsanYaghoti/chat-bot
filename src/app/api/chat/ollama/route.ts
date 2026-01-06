@@ -1,10 +1,4 @@
-import { ChatResponse, Ollama } from "ollama";
-
-type ChatError = {
-  error: string;
-  status_code: number;
-  name: string;
-};
+import { Ollama } from "ollama";
 
 export async function POST(req: Request) {
   try {

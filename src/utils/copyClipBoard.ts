@@ -7,10 +7,12 @@ export default async function copyToClipboard(
     let result = undefined;
 
     if (typeof content === "string") {
-      return (result = await window.navigator.clipboard.writeText(content));
+       result = await window.navigator.clipboard.writeText(content);
+       return result
     }
 
-    return (result = await window.navigator.clipboard.write(content));
+    result = await window.navigator.clipboard.write(content)
+    return result;
   } catch (error) {
     console.log(error);
     throw error;

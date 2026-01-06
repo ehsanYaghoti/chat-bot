@@ -55,7 +55,7 @@ export function AppSidebar() {
       onClick={state === "collapsed" ? toggleSidebar : undefined}
     >
       <SidebarContent
-        className=" text-textClr-1 relative gap-0  "
+        className=" text-textClr-1 bg-primary-1 relative gap-0  "
         style={{
           scrollbarWidth: "auto",
           scrollbarColor: "#303030 transparent",

@@ -7,8 +7,8 @@ import {
   InputGroupInput,
   InputGroupTextarea,
 } from "@/components/ui/input-group";
-import { ArrowUp, AudioLines, Mic, Plus, Square } from "lucide-react";
-import { ChangeEvent, KeyboardEvent, useEffect, useRef, useState } from "react";
+import { ArrowUp, Mic , Square } from "lucide-react";
+import { ChangeEvent, KeyboardEvent, useRef, useState } from "react";
 import InputAddBtn from "./inputAddBtn";
 import { useChat, useLoading } from "@/store/store";
 import { toast } from "sonner";
@@ -37,9 +37,8 @@ export default function InputComponent() {
 
       setLoading(true);
       const id = insertQuestion(question);
-      idRef.current = id;
 
-      const response = await fetch("/api", {
+      const response = await fetch("/api/chat/open-router", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -49,6 +48,7 @@ export default function InputComponent() {
       });
 
       setQuestion("");
+      console.log(response);
       const data = await response.json();
 
       const status = response.status;
@@ -57,6 +57,8 @@ export default function InputComponent() {
 
       setInputTextOverflow(false);
       if (status !== 200) {
+        if (data.error) insertAnswer({ id, content: data?.error?.message });
+
         setErrorAnswer({ id });
       }
 
